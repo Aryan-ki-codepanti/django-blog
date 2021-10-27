@@ -38,20 +38,20 @@
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
                                 <a
-                                    class="nav-link active"
+                                    class="nav-link {% block home %}{% endblock home %}"
                                     aria-current="page"
                                     href="{% url 'Home' %}"
                                     >Home</a
                                 >
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'About' %}">About</a>
+                                <a class="nav-link {% block about %}{% endblock about %}" href="{% url 'About' %}">About</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'Contact' %}">Contact</a>
+                                <a class="nav-link {% block contact %}{% endblock contact %}" href="{% url 'Contact' %}">Contact</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'BlogHome' %}">Blog</a>
+                                <a class="nav-link {% block blog %}{% endblock blog %}" href="{% url 'BlogHome' %}">Blog</a>
                             </li>
                         </ul>
                         <form class="d-flex">
