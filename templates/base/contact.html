@@ -1,9 +1,58 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
 
-{% block title %}
-    Contact | iCoder
-{% endblock title %}
+{% block title %} Contact | iCoder {% endblock title %} 
 
 {% block content %}
-    <h2> Hello Contact </h2>
+<div class="container my-5">
+    <h2 class="text-center mb-3" style="font-weight: 600">
+        Contact iCoder Admin
+    </h2>
+    <form method="POST" >
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="name" class="form-label"> Name </label>
+            <input
+                type="text"
+                name="name"
+                class="form-control"
+                id="name"
+                placeholder="Enter your name"
+            />
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input
+                type="email"
+                name="email"
+                class="form-control"
+                id="email"
+                placeholder="Enter your email id"
+            />
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input
+                type="text"
+                name="phone"
+                class="form-control"
+                id="phone"
+                placeholder="Enter your phone number"
+            />
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="content">How we may help you?</label>
+            <textarea
+                id="content"
+                type="text"
+                class="form-control"
+                id="exampleCheck1"
+                placeholder="Describe your issue"
+                name="content"
+            ></textarea>
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
 {% endblock content %}

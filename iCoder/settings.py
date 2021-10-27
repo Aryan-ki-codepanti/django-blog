@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 # Env variables
+from django.contrib import messages
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -29,6 +30,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'base.apps.BaseConfig' ,
+    'blog.apps.BlogConfig' ,
 ]
 
 MIDDLEWARE = [
@@ -117,3 +120,7 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MESSAGE_TAGS = {
+    messages.ERROR : 'danger'
+}
