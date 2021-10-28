@@ -1,6 +1,8 @@
+from django.db.models.query_utils import Q
 from django.shortcuts import redirect, render
 from .models import Contact
 from django.contrib import messages
+from blog.models import Post
 
 # Create your views here.
 def home(request):
@@ -32,3 +34,16 @@ def contact(request):
         return redirect("Contact")
     return render(request , "base/contact.html")
 
+def search(request):
+    q = request.GET['q'] if request.GET['q'] else ""
+
+    posts = Post.objects.filter(
+        Q(title__icontains=q) | 
+        Q(content__icontains=q) | 
+        Q(author__icontains=q)  
+    )
+    context = {
+        "q": q , 
+        "posts" : posts
+    }
+    return render(request , "base/search.html" , context)

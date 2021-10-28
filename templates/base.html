@@ -54,12 +54,13 @@
                                 <a class="nav-link {% block blog %}{% endblock blog %}" href="{% url 'BlogHome' %}">Blog</a>
                             </li>
                         </ul>
-                        <form class="d-flex">
+                        <form class="d-flex" action="{% url 'Search' %}">
                             <input
                                 class="form-control me-2"
                                 type="search"
                                 placeholder="Search"
                                 aria-label="Search"
+                                name="q"
                             />
                             <button
                                 class="btn btn-outline-success"
