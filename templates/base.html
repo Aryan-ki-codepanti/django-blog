@@ -14,6 +14,14 @@
         />
 
         <title>{% block title %}{% endblock title %}</title>
+
+        <style>
+            h1,
+            h2,
+            h3 {
+                font-weight: 600;
+            }
+        </style>
     </head>
     <body>
         <header>
@@ -38,23 +46,47 @@
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
                                 <a
-                                    class="nav-link {% block home %}{% endblock home %}"
+                                    class="
+                                        nav-link
+                                        {% block home %}{% endblock home %}
+                                    "
                                     aria-current="page"
                                     href="{% url 'Home' %}"
                                     >Home</a
                                 >
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {% block about %}{% endblock about %}" href="{% url 'About' %}">About</a>
+                                <a
+                                    class="
+                                        nav-link
+                                        {% block about %}{% endblock about %}
+                                    "
+                                    href="{% url 'About' %}"
+                                    >About</a
+                                >
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {% block contact %}{% endblock contact %}" href="{% url 'Contact' %}">Contact</a>
+                                <a
+                                    class="
+                                        nav-link
+                                        {% block contact %}{% endblock contact %}
+                                    "
+                                    href="{% url 'Contact' %}"
+                                    >Contact</a
+                                >
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {% block blog %}{% endblock blog %}" href="{% url 'BlogHome' %}">Blog</a>
+                                <a
+                                    class="
+                                        nav-link
+                                        {% block blog %}{% endblock blog %}
+                                    "
+                                    href="{% url 'BlogHome' %}"
+                                    >Blog</a
+                                >
                             </li>
                         </ul>
-                        <form class="d-flex" action="{% url 'Search' %}">
+                        <form class="d-flex mx-5" action="{% url 'Search' %}">
                             <input
                                 class="form-control me-2"
                                 type="search"
@@ -69,17 +101,208 @@
                                 Search
                             </button>
                         </form>
+                        <button
+                            type="button"
+                            class="btn btn-secondary mx-2"
+                            data-bs-toggle="modal"
+                            data-bs-target="#signUpModal"
+                        >
+                            SignUp
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary mx-2"
+                            data-bs-toggle="modal"
+                            data-bs-target="#loginModal"
+                        >
+                            Login
+                        </button>
                     </div>
                 </div>
             </nav>
         </header>
 
         {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} alert-dismissible fade show mb-0" role="alert">
-                    {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <div
+                class="alert alert-{{ message.tags }} alert-dismissible fade show mb-0"
+                role="alert"
+            >
+                {{ message }}
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"
+                ></button>
             </div>
         {% endfor %}
+
+        <!-- Button trigger modal -->
+
+        <!-- Signup Modal -->
+        <div
+            class="modal fade"
+            id="signUpModal"
+            tabindex="-1"
+            aria-labelledby="signUpModal"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="signUpModalLabel">
+                            Sign Up
+                        </h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="username" class="form-label">
+                                    Username
+                                </label>
+                                <input
+                                    type="text"
+                                    name="username"
+                                    class="form-control"
+                                    id="username"
+                                    placeholder="Enter username"
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label for="fname" class="form-label">
+                                    First Name
+                                </label>
+                                <input
+                                    type="text"
+                                    name="fname"
+                                    class="form-control"
+                                    id="fname"
+                                    placeholder="Enter first name"
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label for="lname" class="form-label">
+                                    Last Name
+                                </label>
+                                <input
+                                    type="text"
+                                    name="lname"
+                                    class="form-control"
+                                    id="lname"
+                                    placeholder="Enter last name"
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">
+                                    Email Address
+                                </label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    class="form-control"
+                                    id="email"
+                                    placeholder="Enter your email"
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label"
+                                    >Password</label
+                                >
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    name="password"
+                                    id="password"
+                                    placeholder="Enter password"
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label for="cpassword" class="form-label"
+                                    >Confirm your Password</label
+                                >
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    name="cpassword"
+                                    id="cpassword"
+                                    placeholder="Enter password"
+                                />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Modal -->
+        <div
+            class="modal fade"
+            id="loginModal"
+            tabindex="-1"
+            aria-labelledby="loginModal"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="loginModalLabel">
+                            Login
+                        </h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="login-username" class="form-label">
+                                    Username
+                                </label>
+                                <input
+                                    type="text"
+                                    name="login-username"
+                                    class="form-control"
+                                    id="login-username"
+                                    placeholder="Enter your username"
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label for="login-password" class="form-label"
+                                    >Password</label
+                                >
+                                <input
+                                    type="login-password"
+                                    class="form-control"
+                                    name="login-password"
+                                    id="password"
+                                    placeholder="Enter your password"
+                                />
+                            </div>
+                            
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         {% block content %} {% endblock content %}
 

@@ -36,6 +36,7 @@ def contact(request):
 
 def search(request):
     q = request.GET['q'] if request.GET['q'] else ""
+    
 
     posts = Post.objects.filter(
         Q(title__icontains=q) | 
@@ -46,4 +47,8 @@ def search(request):
         "q": q , 
         "posts" : posts
     }
+    if q == "" or len(q) > 78 or not posts:
+        context["posts"] = []
+        messages.warning(request , "No results found")
+        return render(request , "base/search.html" , context)
     return render(request , "base/search.html" , context)

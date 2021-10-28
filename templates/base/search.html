@@ -7,8 +7,27 @@
 
 
 {% block content %}
+<style>
+    .no-result{
+        font-size: 1.5rem;
+        font-weight: 500;
+    }
+</style>
+
 <div class="container">
-    <h2 class="my-5">Search results related to "{{ q }}"</h2>
+    <h2 class="my-5">Search results related to your query</h2>
+
+    {% if posts|length == 0 %}
+        <div class="no-result">
+            <p class="mb-0"> No results found for <strong>{{ q }}</strong> </p>
+            <p> Suggestions </p>
+            <ul>
+                <li> Try different keyword </li>
+                <li> Try more general keyword </li>
+                <li> Try fewer keywords </li>
+            </ul>
+        </div>
+    {% endif %}
 
     {% for post in posts %}
         <div
