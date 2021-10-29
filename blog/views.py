@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Post , BlogComment
+from blog.templatetags import utils
 
 # Create your views here.
 def blogHome(request):
@@ -13,10 +14,21 @@ def blogHome(request):
 
 def blogPost(request , slug):
     post = get_object_or_404(Post , slug=slug)
-    comments = BlogComment.objects.filter(post=post)
+    comments = BlogComment.objects.filter(post=post , parent=None)
+    replies = BlogComment.objects.filter(post=post).exclude(parent=None)
+
+    # Parent ID ----> its replies
+    repDict = {}
+    for reply in replies:
+        if reply.parent.sno in repDict:
+            repDict[reply.parent.sno].append(reply)
+        else:
+            repDict[reply.parent.sno] = [ reply ]
+
     context = {
         "post" : post , 
-        "comments" : comments 
+        "comments" : comments ,
+        "replyDict" : repDict
     }
     return render(request , "blog/blogPost.html" , context)
 

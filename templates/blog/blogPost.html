@@ -2,6 +2,7 @@
 {% load static %}
 {% block title %} Post | iCoder {% endblock title %}
 {% block content %}
+{% load utils %}
 
     <style>
     
@@ -64,6 +65,13 @@
                                     </form>
                                 </div>
                             </div>
+                            
+                            <div class="replies bg-danger my-2">
+                                {% for reply in replyDict|get_val:comment.sno %}
+                                    <p> {{reply}} </p>
+                                {% endfor %}
+                            </div>
+
                         </div>
                     </div>
                 </div>
