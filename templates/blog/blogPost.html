@@ -48,6 +48,23 @@
                         <p class="mb-0"> 
                             {{ comment.comment }}
                         </p>
+
+                        <div class="reply">
+                            <p>
+                                <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ comment.sno }}" aria-expanded="false" aria-controls="collapse">
+                                    Reply
+                                </button>
+                            </p>
+                            <div class="collapse" id="collapse{{ comment.sno }}">
+                                <div class="card card-body my-2">
+                                    <form method="POST" action="{% url  'PostReply' post.sno comment.sno  %}">
+                                        {% csrf_token %}
+                                        <input type="text" class="form-control" name="reply" placeholder="Reply here">
+                                        <input type="submit" class="btn btn-primary my-2" value="Submit">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             {% endfor %}

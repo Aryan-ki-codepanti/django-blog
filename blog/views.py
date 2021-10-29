@@ -36,3 +36,20 @@ def postComment(request , post_sno):
         messages.success(request , "Your comment has been posted")
         return redirect("BlogPost" , post.slug)
     return redirect("Home")
+
+def postReply(request , post_sno , comment_sno):
+    if request.method == "POST":
+        reply_body = request.POST["reply"] 
+        user = request.user
+        parent = BlogComment.objects.get(sno=comment_sno)
+        post = Post.objects.get(sno=post_sno)
+        comment = BlogComment(
+            comment=reply_body ,
+            parent=parent,
+            user=user,
+            post=post
+        )
+        comment.save()
+        messages.success(request , "Your reply has been posted")
+        return redirect("BlogPost" , post.slug)
+    return redirect("Home")
