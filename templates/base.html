@@ -86,7 +86,7 @@
                                 >
                             </li>
                         </ul>
-                        <form class="d-flex mx-5" action="{% url 'Search' %}">
+                        <form class="d-flex mx-2" action="{% url 'Search' %}">
                             <input
                                 class="form-control me-2"
                                 type="search"
@@ -101,22 +101,36 @@
                                 Search
                             </button>
                         </form>
-                        <button
-                            type="button"
-                            class="btn btn-secondary mx-2"
-                            data-bs-toggle="modal"
-                            data-bs-target="#signUpModal"
-                        >
-                            SignUp
-                        </button>
-                        <button
-                            type="button"
-                            class="btn btn-secondary mx-2"
-                            data-bs-toggle="modal"
-                            data-bs-target="#loginModal"
-                        >
-                            Login
-                        </button>
+
+                        {% if not request.user.is_authenticated %}
+                            <button
+                                type="button"
+                                class="btn btn-secondary mx-2"
+                                data-bs-toggle="modal"
+                                data-bs-target="#signUpModal"
+                            >
+                                SignUp
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-secondary mx-2"
+                                data-bs-toggle="modal"
+                                data-bs-target="#loginModal"
+                            >
+                                Login
+                            </button>
+                        {% else %}
+                            <div class="dropdown">
+                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Welcome {{ request.user.username  }}
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="dropdownMenuLink">
+                                    <li><a class="dropdown-item" href="{% url 'Logout' %}">Logout</a></li>
+                                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                                </ul>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </nav>
@@ -161,7 +175,9 @@
                         ></button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form method="POST" action="{% url 'Signup' %}">
+                            {% csrf_token %}
+
                             <div class="mb-3">
                                 <label for="username" class="form-label">
                                     Username
@@ -172,6 +188,7 @@
                                     class="form-control"
                                     id="username"
                                     placeholder="Enter username"
+                                    required
                                 />
                             </div>
                             <div class="mb-3">
@@ -184,6 +201,7 @@
                                     class="form-control"
                                     id="fname"
                                     placeholder="Enter first name"
+                                    required
                                 />
                             </div>
                             <div class="mb-3">
@@ -196,6 +214,7 @@
                                     class="form-control"
                                     id="lname"
                                     placeholder="Enter last name"
+                                    required
                                 />
                             </div>
                             <div class="mb-3">
@@ -208,6 +227,7 @@
                                     class="form-control"
                                     id="email"
                                     placeholder="Enter your email"
+                                    required
                                 />
                             </div>
                             <div class="mb-3">
@@ -220,6 +240,7 @@
                                     name="password"
                                     id="password"
                                     placeholder="Enter password"
+                                    required
                                 />
                             </div>
                             <div class="mb-3">
@@ -232,6 +253,7 @@
                                     name="cpassword"
                                     id="cpassword"
                                     placeholder="Enter password"
+                                    required
                                 />
                             </div>
                             <div class="modal-footer">
@@ -267,7 +289,8 @@
                         ></button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form action="{% url 'Login' %}" method="POST">
+                            {% csrf_token %}
                             <div class="mb-3">
                                 <label for="login-username" class="form-label">
                                     Username
@@ -278,6 +301,7 @@
                                     class="form-control"
                                     id="login-username"
                                     placeholder="Enter your username"
+                                    required
                                 />
                             </div>
                             <div class="mb-3">
@@ -285,11 +309,12 @@
                                     >Password</label
                                 >
                                 <input
-                                    type="login-password"
+                                    type="password"
                                     class="form-control"
                                     name="login-password"
-                                    id="password"
+                                    id="login-password"
                                     placeholder="Enter your password"
+                                    required
                                 />
                             </div>
                             
