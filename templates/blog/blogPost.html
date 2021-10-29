@@ -1,4 +1,5 @@
 {% extends 'base.html' %} 
+{% load static %}
 {% block title %} Post | iCoder {% endblock title %}
 {% block content %}
 
@@ -19,5 +20,37 @@
             </p>
             <hr />
         </article>
+    </div>
+    <div class="container">
+        <h2 class="my-3"> Comments ({{ comments.count }}) </h2>
+
+        <div class="my-3">
+            {% if request.user.is_authenticated %}
+                <form method="POST" action="{% url 'PostComment' post.sno %}">
+                    {% csrf_token %}
+                    <input type="text" class="form-control" name="comment" placeholder="Enter Comment here">
+                    <input type="submit" class="btn btn-primary my-2" value="Submit">
+                </form>
+            {% else %}
+                <p> Login to post a comment 🤷‍♂️ </p>
+            {% endif %}
+        </div>
+
+            {% for comment in comments %}
+                <div class="row my-2">
+                    <div class="col-md-1">
+                        <img class="w-100" src="{% static 'img/user.png' %}" alt="user">
+                    </div>
+                    <div class="col-md-11 d-flex flex-column justify-content-center">
+                        <p class="mb-0"><strong> @{{ comment.user.username }} </strong> 
+                        <span class="badge badge-light bg-dark">{{ comment.timeStamp|timesince }} ago</span>
+                        </p>
+                        <p class="mb-0"> 
+                            {{ comment.comment }}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+
     </div>
 {% endblock content %}

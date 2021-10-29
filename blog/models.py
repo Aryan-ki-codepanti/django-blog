@@ -25,4 +25,4 @@ class BlogComment(models.Model):
     # parent
 
     def __str__(self):
-        return f"{self.comment} by {self.user.username} on {self.post.title[0:20]}..."
+        return f"{self.comment[0:10]}... by {self.user.username} on {self.post.title[0:20]}..."
