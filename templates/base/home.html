@@ -23,33 +23,44 @@
 <div class="container">
     <h2> Popular Blog Posts : </h2>
     
-    <div
-        class="
-            my-5
-            row
-            g-0
-            border
-            rounded
-            overflow-hidden
-            flex-md-row
-            shadow-sm
-            h-md-250
-            position-relative
-        "
-    >
-        <div class="col p-4 d-flex flex-column position-static">
-            <strong class="d-inline-block mb-2 text-primary">World</strong>
-            <h3 class="mb-0">Featured post</h3>
-            <div class="mb-1 text-muted">
-                Nov 12
+    {% for post in posts %}
+        <div
+            class="
+                my-5
+                row
+                g-0
+                border
+                rounded
+                overflow-hidden
+                flex-md-row
+                shadow-sm
+                h-md-250
+                position-relative
+            "
+        >
+            <div class="col p-4 d-flex flex-column position-static">
+                <strong class="d-inline-block mb-2 text-primary">By {{ post.author|capfirst }} ({{ post.view_count }} views) </strong>
+                <h3 class="mb-0"><a class="text-dark text-decoration-none" href="{% url 'BlogPost' post.slug %}">{{ post.title }} </a> </h3>
+                <div class="mb-1 text-muted">
+                    {{ post.timeStamp }}
+                </div>
+                <p class="card-text mb-auto">
+                    <div class="preview">
+                        {{ post.content|safe|truncatechars:500 }}
+                    </div>
+                </p>
+                <div class="mt-3">
+                    <a href="{% url 'BlogPost' post.slug %}" class="btn btn-info" role="button">Continue reading</a>
+                </div> 
             </div>
-            <p class="card-text mb-auto">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content.
-            </p>
-            <a href="#" class="stretched-link">Continue reading</a>
         </div>
-    </div>
+    {% endfor %}
 </div>
 
 {% endblock content %}
+{% block js %}
+<script>
+    const previews = document.getElementsByClassName('preview');
+    Array.from(previews).forEach(node => node.innerHTML = node.innerText);
+</script>
+{% endblock js %}

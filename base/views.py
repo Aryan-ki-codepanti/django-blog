@@ -6,12 +6,17 @@ from django.contrib import messages
 from blog.models import Post
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate  , login , logout
+from blog.models import Post
 
 # Create your views here.
 
 # HTML Pages
 def home(request):
-    return render(request , "base/home.html")
+    posts = Post.objects.all().order_by("-view_count")[0:3]
+    context = {
+        "posts" : posts
+    }
+    return render(request , "base/home.html" , context)
 
 def about(request):
     return render(request , "base/about.html")
