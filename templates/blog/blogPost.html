@@ -1,6 +1,6 @@
 {% extends 'base.html' %} 
 {% load static %}
-{% block title %} Post | iCoder {% endblock title %}
+{% block title %} {{ post.title }} | iCoder {% endblock title %}
 {% block content %}
 {% load utils %}
 
@@ -14,7 +14,7 @@
     <div class="container my-5">
         <article class="blog-post">
             <h1 class="blog-post-title">{{ post.title }}</h2>
-            <p class="blog-post-meta"> {{ post.timeStamp }}  by <a href="#">{{ post.author }}</a></p>
+            <p class="blog-post-meta"> {{ post.timeStamp }}  by <a href="#">{{ post.author }}</a> <span> {{ post.view_count }} views </span> </p>
 
             <p>
                 {{ post.content|safe }}

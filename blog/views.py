@@ -14,6 +14,8 @@ def blogHome(request):
 
 def blogPost(request , slug):
     post = get_object_or_404(Post , slug=slug)
+    post.view_count = post.view_count + 1
+    post.save()  
     comments = BlogComment.objects.filter(post=post , parent=None)
     replies = BlogComment.objects.filter(post=post).exclude(parent=None)
 

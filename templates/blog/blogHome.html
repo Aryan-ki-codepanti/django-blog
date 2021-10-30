@@ -26,7 +26,7 @@
             "
         >
             <div class="col p-4 d-flex flex-column position-static">
-                <strong class="d-inline-block mb-2 text-primary">By {{ post.author|capfirst }}</strong>
+                <strong class="d-inline-block mb-2 text-primary">By {{ post.author|capfirst }} ({{ post.view_count }} views) </strong>
                 <h3 class="mb-0"><a class="text-dark text-decoration-none" href="{% url 'BlogPost' post.slug %}">{{ post.title }} </a> </h3>
                 <div class="mb-1 text-muted">
                     {{ post.timeStamp }}
