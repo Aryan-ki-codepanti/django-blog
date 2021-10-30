@@ -38,7 +38,7 @@
         </div>
 
             {% for comment in comments %}
-                <div class="row my-2">
+                <div class="row my-5">
                     <div class="col-md-1">
                         <img class="w-100" src="{% static 'img/user.png' %}" alt="user">
                     </div>
@@ -51,24 +51,60 @@
                         </p>
 
                         <div class="reply">
-                            <p>
-                                <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ comment.sno }}" aria-expanded="false" aria-controls="collapse">
-                                    Reply
-                                </button>
-                            </p>
-                            <div class="collapse" id="collapse{{ comment.sno }}">
-                                <div class="card card-body my-2">
-                                    <form method="POST" action="{% url  'PostReply' post.sno comment.sno  %}">
-                                        {% csrf_token %}
-                                        <input type="text" class="form-control" name="reply" placeholder="Reply here">
-                                        <input type="submit" class="btn btn-primary my-2" value="Submit">
-                                    </form>
+                            {% if request.user.is_authenticated %}
+                                <!-- Reply collapse form -->
+                                <div>
+                                    <p>
+                                        <button class="mt-2 btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ comment.sno }}" aria-expanded="false" aria-controls="collapse">
+                                            Reply
+                                        </button>
+                                    </p>
+                                    <div class="collapse" id="collapse{{ comment.sno }}">
+                                        <div class="card card-body my-2">
+                                            <form method="POST" action="{% url  'PostReply' post.sno comment.sno  %}">
+                                                {% csrf_token %}
+                                                <input type="text" class="form-control" name="reply" placeholder="Reply here">
+                                                <input type="submit" class="btn btn-primary my-2" value="Submit">
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+
+                            {% else %}
+                                <!-- Reply collapse form -->
+                                <div>
+                                    <p>
+                                        <button class="btn btn-sm btn-primary mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ comment.sno }}" aria-expanded="false" aria-controls="collapse" disabled>
+                                            Login to Reply
+                                        </button>
+                                    </p>
+                                    <div class="collapse" id="collapse{{ comment.sno }}">
+                                        <div class="card card-body my-2">
+                                            <form method="POST" action="{% url  'PostReply' post.sno comment.sno  %}">
+                                                {% csrf_token %}
+                                                <input type="text" class="form-control" name="reply" placeholder="Reply here">
+                                                <input type="submit" class="btn btn-primary my-2" value="Submit">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
                             
-                            <div class="replies bg-danger my-2">
+                            <div class="replies  my-2">
                                 {% for reply in replyDict|get_val:comment.sno %}
-                                    <p> {{reply}} </p>
+                                    <div class="row my-2">
+                                        <div class="col-md-1">
+                                            <img class="w-75" src="{% static 'img/user.png' %}" alt="user">
+                                        </div>
+                                        <div class="col-md-11 ">
+                                            <p class="mb-0"><strong> @{{ reply.user.username }} </strong> 
+                                            <span class="badge badge-light bg-dark">{{ reply.timeStamp|timesince }} ago</span>
+                                            </p>
+                                            <p class="mb-0"> 
+                                                {{ reply.comment }}
+                                            </p>
+                                        </div>
+                                    </div>
                                 {% endfor %}
                             </div>
 
